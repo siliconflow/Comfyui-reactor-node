@@ -700,14 +700,13 @@ class MaskHelper:
     
     @classmethod
     def INPUT_TYPES(s):
-        bboxs = ["bbox/"+x for x in folder_paths.get_filename_list("ultralytics_bbox")]
-        segms = ["segm/"+x for x in folder_paths.get_filename_list("ultralytics_segm")]
+        bboxs = [x for x in folder_paths.get_filename_list("ultralytics")]
         sam_models = [x for x in folder_paths.get_filename_list("sams") if 'hq' not in x]
         return {
             "required": {
                 "image": ("IMAGE",),
                 "swapped_image": ("IMAGE",),
-                "bbox_model_name": (bboxs + segms, ),
+                "bbox_model_name": (bboxs, ),
                 "bbox_threshold": ("FLOAT", {"default": 0.5, "min": 0.0, "max": 1.0, "step": 0.01}),
                 "bbox_dilation": ("INT", {"default": 10, "min": -512, "max": 512, "step": 1}),
                 "bbox_crop_factor": ("FLOAT", {"default": 3.0, "min": 1.0, "max": 100, "step": 0.1}),
